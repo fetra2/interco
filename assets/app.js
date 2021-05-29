@@ -12,9 +12,8 @@ import './styles/app.css';
 import './bootstrap';
 
 import $ from 'jquery';
-
+/*
 var responsive_menu = $('#responsive_menu');
-//alert('ffdf');
 responsive_menu.on('click', function(e){
     e.preventDefault();
     var x = document.getElementById("myTopnav");
@@ -24,6 +23,7 @@ responsive_menu.on('click', function(e){
       x.className = "topnav";
     }
 })
+*/
 /*
 function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -33,5 +33,9 @@ function myFunction() {
       x.className = "topnav";
     }
 }*/
-alert("hello");
+var $container = $('.navbar');
+$container.find('.navbar-toggler').on('click', function(e){
+    e.preventDefault();
+    //alert("hey")
+})
 console.log("hello");

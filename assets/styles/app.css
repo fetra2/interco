@@ -1,6 +1,6 @@
-
+@import "~bootstrap";
 /******* menu ***********/
-body {
+/*body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -55,4 +55,15 @@ body {
       text-align: left;
     }
   }
+*/
 /******** end menu *********/
+
+/*********** fix footer ****************/
+footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/*********** end footer ****************/

@@ -9,6 +9,8 @@
         
         {% block stylesheets %}         
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            
+
             <!-- Template Main CSS File -->
             {#<link href="{{asset('css/myapp.css')}}" rel="stylesheet">#}
             {{ encore_entry_link_tags('app') }}
@@ -34,20 +36,23 @@
             <p>Resize the browser window to see how it works.</p>
         </div>#}
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">    
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="{{path('homepage')}}">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link active" href="{{path('homepage')}}"><i class="fa fa-fw fa-home"></i>Acceuil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="{{path('homepage_show', {slug:'suivi'})}}"><i class="fa fa-fw fa-search"></i>Suivi</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="{{path('homepage_show', {slug:'contact'})}}"><i class="fa fa-fw fa-envelope"></i>Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fa fa-fw fa-user"></i>Log</a>
       </li>    
     </ul>
   </div>  
@@ -78,7 +83,9 @@
         </footer>
 
         {% block javascripts %}
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             {{ encore_entry_script_tags('app') }} 
             {#<script src="{{asset('js/myapp.js')}}"></script>  #}
             {#<script src="js/myapp.js"></script> #}
