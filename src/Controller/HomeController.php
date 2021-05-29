@@ -10,7 +10,8 @@
       /**
        * @Route("/", name="homepage")
       */
-      public function home(){
+      public function homepage(){
+         dump($this);
          return $this->render('home.html.twig', [
             'page' => 'Home', 
             'navigation'=>['href'=>'#', 'caption'=>"HOME"]
@@ -19,7 +20,7 @@
       }
 
       /**
-       * @Route("/{slug}", name="homepage_slug")
+       * @Route("/{slug}", name="homepage_show")
       */
       public function show($slug=''){
          return $this->render('home.html.twig', [
