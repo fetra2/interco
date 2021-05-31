@@ -20,7 +20,7 @@
       }
 
       /**
-       * @Route("/{slug}", name="homepage_show")
+       * @Route("/blog/{slug}", name="homepage_show")
       */
       public function show($slug=''){
          return $this->render('home.html.twig', [
