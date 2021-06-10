@@ -39,3 +39,13 @@ $container.find('.navbar-toggler').on('click', function(e){
     //alert("hey")
 })
 console.log("hello");
+
+/************* search in show.html.twig **************/
+    $('.table-responsive').find("input[name='search']").on('keyup', function(e){
+        e.preventDefault();
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    })
+/************* end search in show.html.twig **************/

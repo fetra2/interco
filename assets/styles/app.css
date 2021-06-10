@@ -89,3 +89,11 @@ h1{
   }
  
 /*********** end loginpage ****************/
+
+/***********  search ****************/
+input[name="search"] {
+  width: 80%;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+/*********** end search ****************/

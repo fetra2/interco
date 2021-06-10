@@ -4,6 +4,9 @@
     {% if results|length > 0 %}
         <div class="table-responsive">
             {{ results|length  }} lignes
+
+            <input type="text" name="search" placeholder="Rechercher..">
+
             <!--Table-->
             <table class="table table-striped">
                 <!--Table head-->
@@ -18,7 +21,7 @@
                 <!--Table head-->
 
                 <!--Table body-->
-                <tbody>
+                <tbody id="myTable">
                     {% for indice,arrayRes in results %}
                         <tr>
                             <th scope="row"> {{ indice + 1 }}</th>
@@ -37,8 +40,6 @@
             </table>
             <!--Table-->
         </div>
-    {% endif %}
-    
-    
-    
+    {% endif %}  
 {% endblock %}
+
