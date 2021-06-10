@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TblrattachementRepository;
+use App\Repository\RattachementRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TblrattachementRepository::class)
+ * @ORM\Entity(repositoryClass=RattachementRepository::class)
  */
-class Tblrattachement
+class Rattachement
 {
     /**
      * @ORM\Id
@@ -49,7 +49,7 @@ class Tblrattachement
         return $this->dirpm;
     }
 
-    public function setDirpm(string $dirpm): self
+    public function setDirpm(?string $dirpm): self
     {
         $this->dirpm = $dirpm;
 
