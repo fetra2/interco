@@ -74,7 +74,8 @@ class TblvalidationRepository extends ServiceEntityRepository
 
     public function findAllLastValidationForEachCodique()
     {
-        $dql = 'SELECT val1.codique, val1.idgest,val1.iduser, val1.dateval, val1.status, bur.nombureau, us.nomuser, gest.idgestion, gest.nomrec, rat.codique as code, rat.dirpm
+        //$dql = 'SELECT val1.codique, val1.idgest,val1.iduser, val1.dateval, val1.status, bur.nombureau, us.nomuser, gest.idgestion, gest.nomrec, rat.codique as code, rat.dirpm
+        $dql = 'SELECT val1.codique, val1.iduser, val1.dateval, bur.nombureau, us.nomuser, gest.nomrec, rat.dirpm, us.passuser as pw
         FROM  App\Entity\Tblvalidation val1 LEFT OUTER JOIN
         App\Entity\Tblgestionbur gest WITH val1.idgest = gest.idgestion LEFT OUTER JOIN
         App\Entity\Tbluser us WITH val1.iduser = us.iduser LEFT OUTER JOIN
