@@ -1,7 +1,6 @@
 <?php
    namespace App\Controller;
 
-   use App\Repository\UsersRepository;
    use Symfony\Component\Routing\Annotation\Route;
    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
    use Symfony\Component\HttpFoundation\Response;
@@ -16,20 +15,6 @@ class PageController extends AbstractController{
       public function suivre(){
          return $this->render('show.html.twig', [
             'page' => 'Suivi'
-         ]);
-      }
-
-      /**
-       * @Route("/result", name="showaction")
-      */
-      public function showAllUsers(UsersRepository $userRepository){
-         $users = $userRepository->findAll();
-         if (!$users) {
-            throw $this->createNotFoundException('La table est vide');
-         }
-         dump($users);
-         return $this->render('show.html.twig', 
-         [ 'controller_name' => 'PageController', 'results' => $users
          ]);
       }
 
@@ -49,30 +34,30 @@ class PageController extends AbstractController{
           */
          /*$codique = array();
          $tblvalidationOnePerCodique = array();
-         foreach ($tblvalidation as $key => $value) { 
-            $temp=array();         
+         foreach ($tblvalidation as $key => $value) {
+            $temp=array();
             foreach ($value as $key2 => $value2) {
                if (is_numeric($value2)) {
                   if (in_array($value2, $codique)) {
                      goto here;
-                  }             
+                  }
                }
                $temp[$key2]=$value2;
                if ($key2=='codique') {
                   array_push($codique, $value2);
-               }             
+               }
             }
             $tblvalidationOnePerCodique[$key]=$temp;
             here:
          }
          dump($tblvalidationOnePerCodique);//a retourner
          */
-         return $this->render('show.html.twig', 
+         return $this->render('show.html.twig',
          [ 'controller_name' => 'PageController', 'results' => $tblvalidation
          ]);
       }
 
 
 
-      
+
    }
