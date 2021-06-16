@@ -11,7 +11,7 @@ class LoginController extends AbstractController{
     /**
      * @Route("/login/{slug}", name="loginpage")
      */
-    public function showLogin($slug=''){
+    public function showLogin($slug){
         return $this->render('login.html.twig');
     }
 }

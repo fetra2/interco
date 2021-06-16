@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if results|length > 0 %}
+    show
+    {% if results is defined and results|length > 0 %}
         <div class="table-responsive">
             {{ results|length  }} lignes
 
