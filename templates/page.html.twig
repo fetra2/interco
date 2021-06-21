@@ -2,35 +2,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    page
     {% if app.user %}
-        <div class="mb-3">
+        <div class="mb-3" id="logged">
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-        <div id="content">
-        </div>
+        </div>       
     {% endif %}
+    
+    
 {% endblock %}
+
 
 {% block javascripts %} 
     {{ parent() }}
     <script>
-
     window.onload = function() {
         $.ajax({
+            async: true,
             url: '/res',
             method: 'POST',
             //contentType: "application/json; charset=utf-8"
             contentType: "html"
         }).then(function(response) {
            //$('#content').html($(response).find('table-responsive').html());//This is deprecated
-            var content = $('<div>').append(response).find('.table-responsive');
-            $('#content').html( content );
-            
+            //var content = $('<div>').append(response).find('.table-responsive');
+            var content = $('<div>').append(response).find('div#content');
+            $('#logged').append(content);
         });
-    }
-    
-    
+         
+    } 
     </script>
 {% endblock %}
 

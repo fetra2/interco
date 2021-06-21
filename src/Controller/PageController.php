@@ -19,7 +19,7 @@ class PageController extends AbstractController{
       }
 
       /**
-       * @Route("/res", name="showvalidation")
+       * @Route("/res", name="showvalidation", methods="POST")
       */
       //, methods="POST"
       public function showTblValidation(TblvalidationRepository $tblvalidationvepository){

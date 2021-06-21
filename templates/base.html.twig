@@ -19,7 +19,7 @@
         {#block js nafindra ao am body#}
         
     </head>
-    <body> 
+    <body id="contenu"> 
         {% block navigation %}
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">    
             <a class="navbar-brand" href="{{path('homepage')}}">Compta</a>
@@ -31,12 +31,15 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{{path('homepage')}}"><i class="fa fa-fw fa-home"></i>Acceuil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{path('showvalidation')}}"><i class="fa fa-fw fa-search"></i>Suivi</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('homepage_show', {slug:'contact'})}}"><i class="fa fa-fw fa-envelope"></i>Contact</a>
                 </li>
+                {#
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('showvalidation')}}"><i class="fa fa-fw fa-search"></i>Suivi</a>
+                </li>
+                #}
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('app_login')}}"><i class="fa fa-fw fa-user"></i>Login</a>
                 </li>    
@@ -65,8 +68,10 @@
         {% endblock %}
         
         {% block body %}<h5>this is the body</h5>{% endblock %}
+
+        {% block content %}{% endblock %}
         <footer class="mt-5 p-3 text-center bg-light">
-            Made with <i style="color: red;" class="fa fa-heart"></i> by the guys and gals at <a style="color: #444; text-decoration: underline;" href="https://symfonycasts.com">SymfonyCasts</a>
+            Credit: <i style="color: red;" class="fa fa-heart"></i> ftr <a style="color: #444; text-decoration: underline;" href="www.paositramalagasy.mg">Paositra Malagasy</a>
         </footer>
 
         {% block javascripts %}

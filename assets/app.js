@@ -41,8 +41,9 @@ $container.find('.navbar-toggler').on('click', function(e){
 console.log("hello");
 
 /************* search in show.html.twig **************/
-    $('.table-responsive').find("input[name='search']").on('keyup', function(e){
+    $('#content').find("input[name='search']").on('keyup', function(e){
         e.preventDefault();
+        //alert('search')
         var value = $(this).val().toLowerCase();
         $("#myTable tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
