@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="content">
+        {% if results is defined and results|length > 0 %}
+            {{ results|length  }} lignes
+
+            <input type="text" name="search" placeholder="Rechercher..">
+            <div class="table-responsive">
+                <!--Table-->
+                <table class="table table-striped">
+                    <!--Table head-->
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        {% for resultkey,value in results[0] %}
+                            <th class="th-lg"> {{ resultkey }} </th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <!--Table head-->
+
+                    <!--Table body-->
+                    <tbody id="myTable">
+                        {% for indice,arrayRes in results %}
+                            <tr>
+                                <th scope="row"> {{ indice + 1 }}</th>
+                                {% for key,value in arrayRes %}
+                                    {% if key == 'dateval' %}
+                                        <td>{{ value|format_datetime('short', 'none', locale='fr') }}</td> 
+                                    {% else %}
+                                        <td>{{ value }}</td>
+                                    {% endif %} 
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                    <!--Table body-->
+                </table>
+                <!--Table-->
+            </div>
+        {% endif %}  
+    <div>
+{% endblock %}

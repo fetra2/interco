@@ -22,10 +22,10 @@ class PageController extends AbstractController{
        * @Route("/res", name="showvalidation", methods="POST")
       */
       //, methods="POST"
-      public function showTblValidation(TblvalidationRepository $tblvalidationvepository){
-         //$tblvalidation = $tblvalidationvepository->findAllValidation();
-         //$tblvalidation = $tblvalidationvepository->findAllValidationInnerJoin();
-         $tblvalidation = $tblvalidationvepository->findAllLastValidationForEachCodique();
+      public function showTblValidation(TblvalidationRepository $tblvalidationrepository){
+         //$tblvalidation = $tblvalidationrepository->findAllValidation();
+         //$tblvalidation = $tblvalidationrepository->findAllValidationInnerJoin();
+         $tblvalidation = $tblvalidationrepository->findAllLastValidationForEachCodique();
          if (!$tblvalidation) {
             throw $this->createNotFoundException('La table est vide');
          }
@@ -55,6 +55,20 @@ class PageController extends AbstractController{
             */
          /** end */
          return $this->render('show.html.twig',
+         [ 'controller_name' => 'PageController', 'results' => $tblvalidation
+         ]);
+      }
+
+      /**
+       * @Route("/page/{slug}", name="showdetailsvalidation")
+      */
+      public function showTblValidationDetails(TblvalidationRepository $tblvalidationrepository, $slug){
+         $tblvalidation = $tblvalidationrepository->findAllLastValidationForOneCodique($slug);
+         if (!$tblvalidation) {
+            throw $this->createNotFoundException('La table est vide');
+         }
+         dump($tblvalidation);
+         return $this->render('detailsvalidation.html.twig',
          [ 'controller_name' => 'PageController', 'results' => $tblvalidation
          ]);
       }

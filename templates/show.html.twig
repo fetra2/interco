@@ -6,6 +6,7 @@
             {{ results|length  }} lignes
 
             <input type="text" name="search" placeholder="Rechercher..">
+            <div id="legende"><span class="bg-danger">Rouge:</span> Retard de plus d'un an, <span class="bg-primary">Bleue:</span> Retard de plus d'un mois, <span class="bg-warning">Jaune:</span> Retard de plus d'une semaine, <span class="bg-success">Verte:</span> Moin d'une semaine, <span class="border border-info">Aucune:</span> A jour</div>
             <div class="table-responsive">
                 <!--Table-->
                 <table class="table table-striped">
@@ -16,6 +17,7 @@
                         {% for resultkey,value in results[0] %}
                             <th class="th-lg"> {{ resultkey }} </th>
                         {% endfor %}
+                        <th>Résumé</th>
                     </tr>
                     </thead>
                     <!--Table head-->
@@ -25,13 +27,41 @@
                         {% for indice,arrayRes in results %}
                             <tr>
                                 <th scope="row"> {{ indice + 1 }}</th>
+                                {% set startDate = date() %}
                                 {% for key,value in arrayRes %}
                                     {% if key == 'dateval' %}
+                                        {% set startDate = value|format_date() %}
                                         <td>{{ value|format_datetime('short', 'none', locale='fr') }}</td> 
                                     {% else %}
-                                        <td>{{ value }}</td>
+                                        {% if key == 'codique' %}
+                                            <td><a href="/page/{{ value }}">{{ value }}</a></td>
+                                        {% else %}
+                                            <td>{{ value }}</td>
+                                        {% endif %}
                                     {% endif %} 
                                 {% endfor %}
+                                {% set difference = date( "now" | date() ).diff(date(startDate)) %}
+                                {% set leftDays = difference.days %}
+                                {% set leftHours = difference.h %}
+                                {% set leftMonths = difference.m %}
+                                {% set leftYears = difference.y %}
+                                {% set bgcolor = 'none' %}
+                                {% if leftYears > 0 %}
+                                        {% set bgcolor = '#F73107' %}
+                                    {% elseif leftMonths > 0 %}
+                                        {% set bgcolor = 'blue' %}
+                                     {% elseif leftDays > 7 %}
+                                        {% set bgcolor = 'yellow' %}
+                                    {% elseif leftDays > 1 %}
+                                        {% set bgcolor = 'green' %}
+                                    {% else %}
+                                        {% set bgcolor = 'none' %}
+                                {% endif %}
+
+                                <td style="background: {{ bgcolor }} ; color: 'white' "> 
+                                {{ leftYears }} années. 
+                                {{ leftMonths }} mois.
+                                {{ leftDays }} jours </td>
                             </tr>
                         {% endfor %}
                         

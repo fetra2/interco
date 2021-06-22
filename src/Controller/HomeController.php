@@ -11,10 +11,10 @@
        * @Route("/", name="homepage")
       */
       public function homepage(){
-         dump($this);
+         //dump($this);
          return $this->render('home.html.twig', [
-            'page' => 'Home', 
-            'navigation'=>['href'=>'#', 'caption'=>"HOME"]
+            'page' => 'HOME', 
+            'navigation'=>['href'=>'#', 'caption'=>"BIENVENU"]
          ]);
          //return $this->render('BizLand/index.html', ['the' => 'variables', 'go' => 'here']);
       }
