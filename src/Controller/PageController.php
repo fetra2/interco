@@ -54,6 +54,7 @@ class PageController extends AbstractController{
             dump($tblvalidationOnePerCodique);//a retourner
             */
          /** end */
+         //return $this->render('show.html.twig',
          return $this->render('show.html.twig',
          [ 'controller_name' => 'PageController', 'results' => $tblvalidation
          ]);
@@ -72,4 +73,21 @@ class PageController extends AbstractController{
          [ 'controller_name' => 'PageController', 'results' => $tblvalidation
          ]);
       }
+
+      /**
+       * @Route("/resapi", name="showvalidationapi")
+      */
+      public function showTblValidationapi(TblvalidationRepository $tblvalidationrepository){
+         //$tblvalidation = $tblvalidationrepository->findAllValidation();
+         //$tblvalidation = $tblvalidationrepository->findAllValidationInnerJoin();
+         $tblvalidation = $tblvalidationrepository->findAllLastValidationForEachCodique();
+         if (!$tblvalidation) {
+            throw $this->createNotFoundException('La table est vide');
+         }
+         
+         return $this->render('showapi.html.twig',
+         [ 'controller_name' => 'PageController', 'results' => $tblvalidation
+         ]);
+      }
+
    }

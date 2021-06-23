@@ -5,10 +5,14 @@
     {% if app.user %}
         <div class="mb-3" id="logged">
             Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
-        </div>       
+        </div> 
+
+        <div id="content"><div>
+        {% else %}
+            Vous n'êtes pas autorisé à voire le contenu
     {% endif %}
     
-    
+     
 {% endblock %}
 
 
@@ -20,16 +24,31 @@
             async: true,
             url: '/res',
             method: 'POST',
-            //contentType: "application/json; charset=utf-8"
-            contentType: "html"
-        }).then(function(response) {
-           //$('#content').html($(response).find('table-responsive').html());//This is deprecated
-            //var content = $('<div>').append(response).find('.table-responsive');
+            contentType: "application/json; charset=utf-8",
+            //contentType: "html",
+            beforeSend: function () {
+
+            },
+            success: function(response) {
+            //console.log(response)
+            //$('#logged').append(response);
+            //$('#content').load("res")
+            //$('#content').load("resapidiv")
+            //var content = $('<div>').load("resapidiv")
+            //console.log(content)
+            //location.reload(true);
             var content = $('<div>').append(response).find('div#content');
-            $('#logged').append(content);
+            $('#logged').append(content)
+          
+            $('#legende').append($('#legende2').html())
+            $('#legende2').remove()
+
+            },
         });
          
     } 
     </script>
 {% endblock %}
+
+
 

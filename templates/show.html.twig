@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-
+{% set countYMD = {'years':0, 'months':0, 'weeks':0, 'lessOneWeek':0, 'days':0} %}
 {% block body %}
     <div id="content">
         {% if results is defined and results|length > 0 %}
             {{ results|length  }} lignes
 
             <input type="text" name="search" placeholder="Rechercher..">
-            <div id="legende"><span class="bg-danger">Rouge:</span> Retard de plus d'un an, <span class="bg-primary">Bleue:</span> Retard de plus d'un mois, <span class="bg-warning">Jaune:</span> Retard de plus d'une semaine, <span class="bg-success">Verte:</span> Moin d'une semaine, <span class="border border-info">Aucune:</span> A jour</div>
+            <div id="legende"></div>
             <div class="table-responsive">
                 <!--Table-->
                 <table class="table table-striped">
@@ -24,6 +24,7 @@
 
                     <!--Table body-->
                     <tbody id="myTable">
+                        
                         {% for indice,arrayRes in results %}
                             <tr>
                                 <th scope="row"> {{ indice + 1 }}</th>
@@ -40,24 +41,31 @@
                                         {% endif %}
                                     {% endif %} 
                                 {% endfor %}
+
                                 {% set difference = date( "now" | date() ).diff(date(startDate)) %}
                                 {% set leftDays = difference.days %}
                                 {% set leftHours = difference.h %}
                                 {% set leftMonths = difference.m %}
                                 {% set leftYears = difference.y %}
-                                {% set bgcolor = 'none' %}
-                                {% if leftYears > 0 %}
-                                        {% set bgcolor = '#F73107' %}
-                                    {% elseif leftMonths > 0 %}
-                                        {% set bgcolor = 'blue' %}
-                                     {% elseif leftDays > 7 %}
-                                        {% set bgcolor = 'yellow' %}
-                                    {% elseif leftDays > 1 %}
-                                        {% set bgcolor = 'green' %}
-                                    {% else %}
-                                        {% set bgcolor = 'none' %}
-                                {% endif %}
 
+                                {% set bgcolor = 'none' %}    
+                                {% if leftYears > 0 %}
+                                    {% set bgcolor = '#F73107' %}
+                                    {% set countYMD = countYMD|merge({'years': (countYMD.years + 1)}) %}
+                                {% elseif leftMonths > 0 %}
+                                    {% set bgcolor = 'blue' %}
+                                    {% set countYMD = countYMD|merge({'months': (countYMD.months + 1)}) %}
+                                {% elseif leftDays > 7 %}
+                                    {% set bgcolor = 'yellow' %}
+                                    {% set countYMD = countYMD|merge({'weeks': (countYMD.weeks + 1)}) %}
+                                {% elseif leftDays > 1 %}
+                                    {% set bgcolor = 'green' %}
+                                    {% set countYMD = countYMD|merge({'lessOneWeek': (countYMD.lessOneWeek + 1)}) %}
+                                {% else %}
+                                    {% set bgcolor = 'none' %}
+                                    {% set countYMD = countYMD|merge({'days': (countYMD.days + 1)}) %}
+                                {% endif %}
+                                
                                 <td style="background: {{ bgcolor }} ; color: 'white' "> 
                                 {{ leftYears }} années. 
                                 {{ leftMonths }} mois.
@@ -70,6 +78,28 @@
                 </table>
                 <!--Table-->
             </div>
-        {% endif %}  
+            
+        {% endif %} 
+        <div id="legende2"><span class="bg-danger year">Rouge:</span> ({{ countYMD.years }}) Retard de plus d'un an , <span class="bg-primary month">Bleue:</span> ({{ countYMD.months }}) Retard de plus d'un mois, <span class="bg-warning week">Jaune:</span> ({{ countYMD.weeks }}) Retard de plus d'une semaine, <span class="bg-success day">Verte:</span> ({{ countYMD.lessOneWeek }}) Moin d'une semaine, <span class="border border-info noday">Aucune:</span> ({{ countYMD.days }}) A jour</div>
+        </br>
+        <script>//cannot be inserted outside the block if not countYMD's values would be zero 
+        window.onload = function() {
+            $('#legende').append($('#legende2').html())
+            $('#legende2').remove()
+            /*
+            $('#legende span.year').after('<b> '+ {{ countYMD.years }} + '</b>')
+            $('#legende span.month').after('<b> '+ {{ countYMD.months }} + '</b>')  
+            $('#legende span.week').after('<b> '+ {{ countYMD.weeks }} + '</b>') 
+            $('#legende span.day').after('<b> '+ {{ countYMD.lessOneWeek }} + '</b>') 
+            $('#legende span.noday').after('<b> '+ {{ countYMD.days }} + '</b>')  
+            */ 
+        } 
+        </script>
+        
     <div>
+    {#
+    <pre>
+        {{ dump(countYMD) }}
+    </pre>
+    #}
 {% endblock %}
