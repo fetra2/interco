@@ -4,6 +4,11 @@
 {% block body %}
     {% if app.user %}
         <div class="mb-3" id="logged">
+            
+            <pre>
+                {#{ dump(app.user) }#}
+            </pre>
+            
             Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
         </div> 
 
@@ -20,9 +25,17 @@
     {{ parent() }}
     <script>
     window.onload = function() {
+        var fonctionuser = "{{ (app.user.fonctionuser is defined) ? app.user.fonctionuser : '' }}"
+        fonctionuser = fonctionuser.replace(/\s/g, '')
+        fonctionuser = fonctionuser.toLowerCase()
+        var codique = "{{ (app.user.codique is defined) ? app.user.codique : '' }}"
+        var username = "{{ (app.user.username is defined) ? app.user.username : '' }}"
+        var urltxt = '/res/'+fonctionuser+'/'+codique+'/'+username
+        //alert(urltxt);
+        //console.log(username)
         $.ajax({
             async: true,
-            url: '/res',
+            url: urltxt,
             method: 'POST',
             contentType: "application/json; charset=utf-8",
             //contentType: "html",

@@ -17,7 +17,8 @@
                         {% for resultkey,value in results[0] %}
                             <th class="th-lg"> {{ resultkey }} </th>
                         {% endfor %}
-                        <th>Résumé</th>
+                        <th>Observations</th>
+                        <th>Notifier</th>
                     </tr>
                     </thead>
                     <!--Table head-->
@@ -67,9 +68,12 @@
                                 {% endif %}
                                 
                                 <td style="background: {{ bgcolor }} ; color: 'white' "> 
+                                
                                 {{ leftYears }} années. 
                                 {{ leftMonths }} mois.
-                                {{ leftDays }} jours </td>
+                                {{ leftDays }} jours 
+                                </td>
+                                <td><a href="/emailform"><i class="fa fa-paper-plane" aria-hidden="true"></i></a></td>
                             </tr>
                         {% endfor %}
                         

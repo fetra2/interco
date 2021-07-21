@@ -79,7 +79,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         //return $this->password;
     }
@@ -97,7 +97,7 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getSalt():// ?string
+    public function getSalt()
     {
         //return null;
     }

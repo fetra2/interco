@@ -19,17 +19,33 @@ class PageController extends AbstractController{
       }
 
       /**
-       * @Route("/res", name="showvalidation", methods="POST")
+       * @Route("/res/{dir}/{cod}/{usr}", name="showvalidation", methods="POST")
       */
       //, methods="POST"
-      public function showTblValidation(TblvalidationRepository $tblvalidationrepository){
+      public function showTblValidation(TblvalidationRepository $tblvalidationrepository, $dir='', $cod='',$usr=''){
+         if ($usr == 'superadmin') {
+            $tblvalidation = $tblvalidationrepository->findAllLastValidationForAdmin();
+         }else{
+            if ($dir == 'superadmin') {
+               $tblvalidation = $tblvalidationrepository->findAllLastValidationForEachCodique();
+            }elseif ($dir != '' ) {
+               if ($cod != '') {
+                  //dd(substr($cod,0,1));
+                  $dirpm = array('1'=>'Antananarivo','2'=>'Antsiranana','3'=>'Fianarantsoa','4'=>'Mahajanga','5'=>'Toamasina','6'=>'Toliara');
+                  $tblvalidation = $tblvalidationrepository->findAllLastValidationForEachGroup($dirpm[substr($cod,0,1)]);
+               }
+            }          
+         }
+         
          //$tblvalidation = $tblvalidationrepository->findAllValidation();
          //$tblvalidation = $tblvalidationrepository->findAllValidationInnerJoin();
-         $tblvalidation = $tblvalidationrepository->findAllLastValidationForEachCodique();
+         //$tblvalidation = $tblvalidationrepository->findAllLastValidationForEachCodique();
+         //$tblvalidation = $tblvalidationrepository->findAllLastValidationForAdmin();
+         //$tblvalidation = $tblvalidationrepository->findAllLastValidationForEachGroup('Antsiranana');
          if (!$tblvalidation) {
             throw $this->createNotFoundException('La table est vide');
          }
-         dump($tblvalidation);
+         //dump($tblvalidation);
          /*******Raha toa ka ato no manao filtrage ny valin'ny sql:
           * maka ny tblValidation rht
           */
