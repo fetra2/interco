@@ -4,11 +4,11 @@
 {% block body %}
     {% if app.user %}
         <div class="mb-3" id="logged">
-            
+            {#
             <pre>
-                {#{ dump(app.user) }#}
+                {{ dump(app.user) }}
             </pre>
-            
+            #}
             Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
         </div> 
 
@@ -30,9 +30,28 @@
         fonctionuser = fonctionuser.toLowerCase()
         var codique = "{{ (app.user.codique is defined) ? app.user.codique : '' }}"
         var username = "{{ (app.user.username is defined) ? app.user.username : '' }}"
+        var accesuser = "{{ (app.user.accesuser is defined) ? app.user.accesuser : '' }}"
+        
+        switch(username) {
+        case "cp_vakmen":
+            codique = "7"+codique;
+            break;
+        case "cp_sofia":
+            codique = "8"+codique;
+            break;
+        case "cp_ihorombe":
+            codique = "9"+codique;
+            break;
+        case "cp_androy":
+            codique = "A"+codique;
+            break;
+        default:
+            codique = codique;
+        }                          
         var urltxt = '/res/'+fonctionuser+'/'+codique+'/'+username
         //alert(urltxt);
-        //console.log(username)
+        console.log(username)
+        console.log(accesuser)
         $.ajax({
             async: true,
             url: urltxt,
