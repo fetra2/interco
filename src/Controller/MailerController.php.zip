@@ -169,40 +169,18 @@ class MailerController extends AbstractController
     }
 
     /**
-     * @Route("/emailme", name="emailme")
-     * 
-     * @param Request $request
-     * @return array|JsonResponse|null|object
+     * @Route("/emailme/{data}")
      */
-    public function sendEmailMe(MailerInterface $mailer, Request $request)
+    public function sendEmailMe(MailerInterface $mailer,$data)
     {
-        //dump(array(1=>'fetra')) ;
-        $content = $request->getContent(false);
-       //dump($content);
-        $content_arr = explode('&',$content);
-        $data_array=array();
-        foreach ($content_arr as $key => $value) {
-            $x = explode('=',urldecode($value));
-            $a=$x[0]; 
-            $b=$x[1];
-            $data_array += [$a=>$b];
-            //dump($data_array);
-        }
-        //$pattern = "/\s/";//Match any whitespace characteres
-        //$pattern = "/[^\S ]+/"; //Regex that Matches all whitespace characteres except spaces
-        $pattern = "/\n/";
-        $replacement = "<br>";
-        //$text = "Earth revolves around\nthe\tSun";
-        // Replace spaces, newlines and tabs
-        $text = $data_array['message'];
-        //dump(preg_replace($pattern, $replacement, $text));
-
+        dump($data) ;
+        parse_str($data, $data_array);
         $email = (new Email())
             //->from('interco@paositramalagasy.mg')
             ->from($data_array['sender'])
             //->to('rasolonjatovofetra@gmail.com')
             //->to($data_array['recipient'])
-            //->cc('masaky@gmail.com')
+            //->cc('ddpwebetmultimedia@gmail.com')
             //->cc($data_array['cc'])
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')
@@ -211,8 +189,8 @@ class MailerController extends AbstractController
             ->subject($data_array['subject'])
             //->text('it works!')
             ->text($data_array['message'])
-            //->html("<p>Miarahaba tompoko mandeha tsara</p>");
-           ->html(preg_replace($pattern, $replacement, $text));
+           // ->html("<p>Miarahaba tompoko mandeha tsara</p>");
+           ->html($data_array['message']);
 
         if (str_contains($data_array['recipient'], ',')) {
             $to_array = explode(",",$data_array['recipient']);
@@ -221,10 +199,9 @@ class MailerController extends AbstractController
             }
         }else{
             $email->to($data_array['recipient']);
-            //$email->to('rasolonjatovofetra@gmail.com');
         }
 
-        if ($data_array['cc'] != null && $data_array['cc'] != "") {
+        if ($data_array['cc'] != null) {
             if (str_contains($data_array['cc'], ',')) {
                 $cc_array = explode(",",$data_array['cc']);
                 foreach($cc_array as $value){
@@ -235,8 +212,6 @@ class MailerController extends AbstractController
             }
         }
 
-        //dump($data_array);
-        
         $sender = '';
         $receiver = '';
         $copies = '';
